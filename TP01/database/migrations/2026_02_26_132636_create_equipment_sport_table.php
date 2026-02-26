@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('first_name', 50);
-            $table->string('last_name', 50);
-            $table->string('email', 50)->unique();
-            $table->string('phone', 12);
-            $table->timestamps();
+        Schema::create('equipment_sport', function (Blueprint $table) {
+            $table->foreignId('equipment_id')->constrained('equipment')->onDelete('cascade');
+            $table->foreignId('sport_id')->constrained('sports')->onDelete('cascade');
+            $table->primary(['equipment_id', 'sport_id']);
         });
     }
 
@@ -26,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('equipment_sport');
     }
 };
